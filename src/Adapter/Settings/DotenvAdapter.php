@@ -14,22 +14,25 @@ use Dotenv\Dotenv;
 class DotenvAdapter implements SettingsInterface
 {
     /**
+     * @var string|string
+     */
+    private $nodeUrl;
+
+    /**
+     * @var string|string
+     */
+    private $keosUrl;
+
+    /**
      * DotenvAdapter constructor
      *
-     * @param  Dotenv $client
-     * @param  bool $ifLoad
-     * @throws SettingsException
-     * @throws SettingsNotFoundException
+     * @param  string  $nodeUrl
+     * @param  string  $keosUrl
      */
-    public function __construct(Dotenv $settings)
+    public function __construct(string $nodeUrl, string $keosUrl)
     {
-        try {
-            $settings->load();
-        } catch (\Dotenv\Exception\InvalidPathException $e) {
-            throw new SettingsNotFoundException('Invalid path to settings config file');
-        } catch (\Throwable $t) {
-            throw new SettingsException('Access to settings failed');
-        }
+        $this->keosUrl = $keosUrl;
+        $this->nodeUrl = $nodeUrl;
     }
 
     /**
@@ -37,7 +40,7 @@ class DotenvAdapter implements SettingsInterface
      */
     public function rpcNode(): string
     {
-        return (string) getenv('RPC_NODE_URL');
+        return $this->nodeUrl;
     }
 
     /**
@@ -45,6 +48,6 @@ class DotenvAdapter implements SettingsInterface
      */
     public function rpcKeosd(): string
     {
-        return (string) getenv('RPC_KEOSD_URL');
+        return $this->keosUrl;
     }
 }
