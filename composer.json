@@ -1,5 +1,5 @@
 {
-    "name": "manamine/php-eos-rpc-sdk",
+    "name": "ziptied/zeo_php-eos-rpc-sdk",
     "description": "PHP SDK for the EOS RPC API",
     "type": "library",
     "keywords": ["php","eos","rpc","sdk","api","crypto","blockchain"],
